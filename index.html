@@ -106,22 +106,28 @@
       }
     }
 
-    /* 🎥 Video */
+    /* 🎥 VIDEO POPUP FIXED */
     #videoPopup {
       display: none;
       position: fixed;
+      top: 0;
+      left: 0;
       width: 100%;
       height: 100%;
-      background: rgba(0,0,0,0.9);
+      background: rgba(0,0,0,0.95);
       justify-content: center;
       align-items: center;
+      flex-direction: column;
+      z-index: 100;
     }
 
     video {
       width: 80%;
       max-width: 500px;
+      border-radius: 10px;
     }
 
+    /* 🔐 Screens */
     #lockScreen, #startScreen {
       position: fixed;
       width: 100%;
@@ -171,7 +177,6 @@
   </div>
 </section>
 
-<!-- 💥 MID MOMENT -->
 <section>
   <button onclick="showMessage()">Click this…</button>
   <p id="secret"></p>
@@ -182,7 +187,6 @@
   <button onclick="openVideo()">Watch this 🎥</button>
 </section>
 
-<!-- 💥 FINAL MOMENT -->
 <section>
   <h2>One last thing… ❤️</h2>
   <button onclick="showFinalLove()">Click this kuttima… 💖</button>
@@ -197,11 +201,12 @@
   <source src="song.mp3" type="audio/mpeg">
 </audio>
 
-<!-- VIDEO -->
-<div id="videoPopup" onclick="closeVideo()">
-  <video controls>
+<!-- 🎥 VIDEO -->
+<div id="videoPopup">
+  <video controls id="myVideo">
     <source src="video.mp4">
   </video>
+  <button onclick="closeVideo()">Close ✖</button>
 </div>
 
 <script>
@@ -273,12 +278,18 @@ setInterval(() => {
   setTimeout(()=>h.remove(),6000);
 },300);
 
-/* VIDEO */
+/* 🎥 VIDEO FIXED */
 function openVideo() {
   document.getElementById("videoPopup").style.display = "flex";
 }
+
 function closeVideo() {
-  document.getElementById("videoPopup").style.display = "none";
+  const popup = document.getElementById("videoPopup");
+  const video = document.getElementById("myVideo");
+
+  popup.style.display = "none";
+  video.pause();
+  video.currentTime = 0;
 }
 
 </script>
