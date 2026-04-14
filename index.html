@@ -4,30 +4,44 @@
   <title>For You ❤️</title>
 
   <style>
+    html {
+      scroll-behavior: smooth;
+    }
+
     body {
       margin: 0;
       font-family: 'Segoe UI', sans-serif;
-      text-align: center;
-      background: linear-gradient(to bottom, #ffe6e6, #fff);
+      background: #0f0f0f;
+      color: white;
       overflow-x: hidden;
     }
 
-    h1 {
+    section {
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      padding: 20px;
+      opacity: 0;
+      transform: translateY(40px);
+      transition: all 1s ease;
+    }
+
+    section.show {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    h1, h2 {
       color: #ff4d6d;
-      margin-top: 40px;
     }
 
     p {
-      font-size: 18px;
       max-width: 600px;
-      margin: 10px auto;
+      text-align: center;
       line-height: 1.6;
-    }
-
-    img {
-      width: 200px;
-      border-radius: 12px;
-      margin: 10px;
+      font-size: 18px;
     }
 
     button {
@@ -36,29 +50,39 @@
       color: white;
       border: none;
       border-radius: 8px;
+      margin-top: 20px;
       cursor: pointer;
-      margin: 10px;
     }
 
-    /* 🔐 Password Screen */
-    #lockScreen {
-      position: fixed;
+    /* 📸 Cinematic Photos */
+    .hero-img {
+      width: 90%;
+      max-width: 400px;
+      border-radius: 15px;
+      margin: 20px 0;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.6);
+    }
+
+    .gallery {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 12px;
+      max-width: 500px;
+    }
+
+    .gallery img {
       width: 100%;
-      height: 100%;
-      background: #ffe6e6;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      flex-direction: column;
-      z-index: 10;
+      height: 180px;
+      object-fit: cover;
+      border-radius: 12px;
     }
 
     /* 💖 Hearts */
     .heart {
       position: fixed;
       bottom: -10px;
-      animation: floatUp 6s linear infinite;
       color: #ff4d6d;
+      animation: floatUp 6s linear infinite;
     }
 
     @keyframes floatUp {
@@ -66,7 +90,7 @@
       100% { transform: translateY(-100vh); opacity: 0; }
     }
 
-    /* 🎥 Video Popup */
+    /* 🎥 Video */
     #videoPopup {
       display: none;
       position: fixed;
@@ -74,7 +98,7 @@
       left: 0;
       width: 100%;
       height: 100%;
-      background: rgba(0,0,0,0.8);
+      background: rgba(0,0,0,0.9);
       justify-content: center;
       align-items: center;
     }
@@ -82,49 +106,59 @@
     video {
       width: 80%;
       max-width: 500px;
-      border-radius: 10px;
     }
+
   </style>
 </head>
 
 <body>
 
-<!-- 🔐 Password Screen -->
-<div id="lockScreen">
-  <h2>Enter Password ❤️</h2>
-  <input type="password" id="passwordInput" placeholder="Enter something special">
-  <button onclick="checkPassword()">Enter</button>
-</div>
+<!-- 🎬 SECTION 1 -->
+<section>
+  <h1>Hey Vidhu ma ❤️</h1>
+  <p id="typing"></p>
+</section>
 
-<h1>Hey Vidhu ma ❤️</h1>
+<!-- 🎬 SECTION 2 -->
+<section>
+  <h2>Us… 📸</h2>
+  <img src="photo1.jpg.jpeg" class="hero-img">
+</section>
 
-<p id="typing"></p>
+<!-- 🎬 SECTION 3 -->
+<section>
+  <div class="gallery">
+    <img src="photo2.jpg.jpeg">
+    <img src="photo3.jpg.jpeg">
+    <img src="photo4.jpg.jpeg">
+    <img src="photo1.jpg.jpeg">
+  </div>
+</section>
 
-<button onclick="showMessage()">Click this…</button>
-<button onclick="openVideo()">Watch this 🎥</button>
+<!-- 🎬 SECTION 4 -->
+<section>
+  <button onclick="showMessage()">Click this…</button>
+  <p id="secret"></p>
+</section>
 
-<p id="secret" style="font-weight:bold;color:#ff4d6d;"></p>
+<!-- 🎬 SECTION 5 -->
+<section>
+  <button onclick="openVideo()">Watch this 🎥</button>
+</section>
 
-<h2>Our Memories 📸</h2>
+<!-- 🎬 FINAL -->
+<section>
+  <h2>One last thing… ❤️</h2>
+  <button onclick="showFinalLove()">Click this kutti… 💖</button>
+  <p id="finalMessage"></p>
+</section>
 
-<img src="photo1.jpg.jpeg">
-<img src="photo2.jpg.jpeg">
-<img src="photo3.jpg.jpeg">
-<img src="photo4.jpg.jpeg">
+<!-- 🎵 Music -->
+<audio id="bgMusic" loop>
+  <source src="song.mp3" type="audio/mpeg">
+</audio>
 
-<!-- 💌 FINAL SECTION -->
-<h2>One last thing… ❤️</h2>
-
-<button onclick="showFinalLove()">Click this kutti… 💖</button>
-
-<p id="finalMessage" style="font-weight:bold; color:#ff4d6d; font-size:20px;"></p>
-
-<!-- 🎵 Background Music -->
-<iframe width="0" height="0"
-src="https://www.youtube.com/embed/Ha9stsbmreI?autoplay=1&loop=1&playlist=Ha9stsbmreI">
-</iframe>
-
-<!-- 🎥 Video Popup -->
+<!-- 🎥 Video -->
 <div id="videoPopup" onclick="closeVideo()">
   <video controls>
     <source src="video.mp4" type="video/mp4">
@@ -132,15 +166,23 @@ src="https://www.youtube.com/embed/Ha9stsbmreI?autoplay=1&loop=1&playlist=Ha9sts
 </div>
 
 <script>
-/* 🔐 Password */
-function checkPassword() {
-  const pass = document.getElementById("passwordInput").value;
-  if(pass === "vidhu") {
-    document.getElementById("lockScreen").style.display = "none";
-  } else {
-    alert("Wrong password ❤️");
-  }
-}
+
+/* 🎬 Scroll Animation */
+const sections = document.querySelectorAll("section");
+
+window.addEventListener("scroll", () => {
+  sections.forEach(sec => {
+    const top = sec.getBoundingClientRect().top;
+    if(top < window.innerHeight - 100) {
+      sec.classList.add("show");
+    }
+  });
+});
+
+/* 🎵 Start music */
+document.addEventListener("click", () => {
+  document.getElementById("bgMusic").play();
+}, { once: true });
 
 /* ✨ Typing */
 const text = "I know things felt a little off yesterday… and I’ve been thinking about it a lot.\n\nIf I hurt you in any way… I’m really sorry.\n\nYou mean a lot to me, Vidhu ma… more than anything.\n\nI’ll always choose you.";
@@ -150,12 +192,12 @@ function typeWriter() {
   if (i < text.length) {
     document.getElementById("typing").innerHTML += text.charAt(i);
     i++;
-    setTimeout(typeWriter, 40);
+    setTimeout(typeWriter, 35);
   }
 }
 typeWriter();
 
-/* ❤️ Button */
+/* ❤️ Message */
 function showMessage() {
   document.getElementById("secret").innerText =
   "No matter what happens, I choose you. Always. ❤️";
@@ -181,11 +223,12 @@ function closeVideo() {
   document.getElementById("videoPopup").style.display = "none";
 }
 
-/* 💌 FINAL MESSAGE */
+/* 💌 Final */
 function showFinalLove() {
   document.getElementById("finalMessage").innerText =
   "Kovam koranjiruchaa kuttimaaaa… ❤️";
 }
+
 </script>
 
 </body>
