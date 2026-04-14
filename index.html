@@ -16,32 +16,30 @@
       overflow-x: hidden;
     }
 
-    /* 🌙 Glow Effect */
+    /* 🌙 Glow text */
     h1, h2 {
       color: #ff4d6d;
-      text-shadow: 0 0 10px rgba(255,77,109,0.8);
+      text-shadow: 0 0 15px rgba(255,77,109,0.8);
     }
 
     /* 🎬 Sections */
     section {
-      min-height: auto;
-      padding: 60px 20px;
-      margin: 20px 0;
+      padding: 80px 20px;
       display: flex;
       flex-direction: column;
       align-items: center;
       opacity: 0;
       transform: translateY(40px);
-      transition: all 1s ease;
+      transition: all 1.2s ease;
     }
 
     section.show {
       opacity: 1;
       transform: translateY(0);
-      backdrop-filter: blur(5px); /* 💫 blur transition */
+      backdrop-filter: blur(6px);
     }
 
-    /* 🎬 Background fade */
+    /* 🎬 Background blending */
     section:nth-child(odd) {
       background: linear-gradient(to bottom, #0f0f0f, #1a1a1a);
     }
@@ -54,7 +52,7 @@
       max-width: 600px;
       text-align: center;
       font-size: 18px;
-      line-height: 1.6;
+      line-height: 1.8;
     }
 
     button {
@@ -86,8 +84,8 @@
     .heart {
       position: fixed;
       bottom: -10px;
-      animation: floatUp 6s linear infinite;
       color: #ff4d6d;
+      animation: floatUp 6s linear infinite;
     }
 
     @keyframes floatUp {
@@ -113,21 +111,8 @@
       max-width: 500px;
     }
 
-    /* 🔐 Password Screen */
-    #lockScreen {
-      position: fixed;
-      width: 100%;
-      height: 100%;
-      background: #0f0f0f;
-      display: none;
-      justify-content: center;
-      align-items: center;
-      flex-direction: column;
-      z-index: 10;
-    }
-
-    /* 🎬 Start Screen */
-    #startScreen {
+    /* 🔐 Password */
+    #lockScreen, #startScreen {
       position: fixed;
       width: 100%;
       height: 100%;
@@ -136,7 +121,11 @@
       justify-content: center;
       align-items: center;
       flex-direction: column;
-      z-index: 20;
+      z-index: 10;
+    }
+
+    #lockScreen {
+      display: none;
     }
 
   </style>
@@ -144,7 +133,7 @@
 
 <body>
 
-<!-- 🎬 START SCREEN -->
+<!-- 🎬 START -->
 <div id="startScreen">
   <h1>Hey… ❤️</h1>
   <button onclick="startExperience()">Click this…</button>
@@ -157,11 +146,11 @@
   <button onclick="checkPassword()">Enter</button>
 </div>
 
-<!-- 🎬 MAIN CONTENT -->
+<!-- 🎬 CONTENT -->
 <div id="mainContent" style="display:none;">
 
 <section>
-  <h1>OIII KUTTII ma ❤️</h1>
+  <h1>OOIII KUTTII ma ❤️</h1>
   <p id="typing"></p>
 </section>
 
@@ -205,22 +194,24 @@
 
 <script>
 
-/* 🎬 Start Experience */
+/* 🎬 START FLOW */
 function startExperience() {
   document.getElementById("startScreen").style.display = "none";
   document.getElementById("lockScreen").style.display = "flex";
   document.getElementById("bgMusic").play();
 }
 
-/* 🔐 Password */
+/* 🔐 PASSWORD */
 function checkPassword() {
-  if(document.getElementById("passwordInput").value === "vidhu") {
+  if(document.getElementById("passwordInput").value === "kuttima") {
     document.getElementById("lockScreen").style.display = "none";
     document.getElementById("mainContent").style.display = "block";
+  } else {
+    alert("Think again kutti ❤️");
   }
 }
 
-/* 🎬 Scroll Animation */
+/* 🎬 SCROLL */
 const sections = document.querySelectorAll("section");
 
 window.addEventListener("scroll", () => {
@@ -231,26 +222,26 @@ window.addEventListener("scroll", () => {
   });
 });
 
-/* ✨ Typing */
-const text = "I know things felt a little off yesterday… and I’ve been thinking about it a lot.\n\nIf I hurt you… I’m really sorry.\n\nYou mean a lot to me Vidhu ma…\n\nI’ll always choose you.";
+/* ✨ SLOW TYPING (READABLE) */
+const text = "I know things felt a little off yesterday…\n\nI’ve been thinking about it a lot.\n\nIf I hurt you in any way… I’m really sorry.\n\nYou mean a lot to me, Vidhu ma…\n\nMore than anything.\n\nAnd no matter what happens…\n\nI’ll always choose you.";
 
 let i = 0;
 function typeWriter() {
   if (i < text.length) {
     document.getElementById("typing").innerHTML += text.charAt(i);
     i++;
-    setTimeout(typeWriter, 35);
+    setTimeout(typeWriter, 60); // 🔥 slower typing
   }
 }
 typeWriter();
 
-/* ❤️ Message */
+/* ❤️ MESSAGE */
 function showMessage() {
   document.getElementById("secret").innerText =
   "No matter what happens, I choose you ❤️";
 }
 
-/* 💖 Hearts */
+/* 💖 HEARTS */
 setInterval(() => {
   const h = document.createElement("div");
   h.className = "heart";
@@ -261,7 +252,7 @@ setInterval(() => {
   setTimeout(()=>h.remove(),6000);
 },300);
 
-/* 🎥 Video */
+/* 🎥 VIDEO */
 function openVideo() {
   document.getElementById("videoPopup").style.display = "flex";
 }
@@ -269,10 +260,10 @@ function closeVideo() {
   document.getElementById("videoPopup").style.display = "none";
 }
 
-/* 💌 Final */
+/* 💌 FINAL */
 function showFinalLove() {
   document.getElementById("finalMessage").innerText =
-  "Hope this made you smile kutti ❤️";
+  "Kovam koranjiruchaa kuttimaaaa… ❤️";
 }
 
 </script>
