@@ -2,18 +2,19 @@
 <html>
 <head>
   <title>For You ❤️</title>
+
   <style>
     body {
-      font-family: Arial;
+      margin: 0;
+      font-family: 'Segoe UI', sans-serif;
       text-align: center;
       background: linear-gradient(to bottom, #ffe6e6, #fff);
-      color: #333;
-      padding: 20px;
+      overflow-x: hidden;
     }
 
     h1 {
       color: #ff4d6d;
-      font-size: 2.5em;
+      margin-top: 40px;
     }
 
     p {
@@ -24,7 +25,7 @@
     }
 
     img {
-      width: 220px;
+      width: 200px;
       border-radius: 12px;
       margin: 10px;
       box-shadow: 0 4px 10px rgba(0,0,0,0.2);
@@ -41,57 +42,82 @@
       cursor: pointer;
     }
 
-    button:hover {
-      background: #e63e5c;
+    /* 💖 Floating Hearts */
+    .heart {
+      position: fixed;
+      bottom: -10px;
+      color: #ff4d6d;
+      animation: floatUp 6s linear infinite;
+    }
+
+    @keyframes floatUp {
+      0% {
+        transform: translateY(0);
+        opacity: 1;
+      }
+      100% {
+        transform: translateY(-100vh);
+        opacity: 0;
+      }
     }
   </style>
 </head>
 
 <body>
 
-  <h1>Hey… ❤️</h1>
+<h1>Hey Vidhu ma ❤️</h1>
 
-  <p>
-    I know things felt a little off yesterday… and I’ve been thinking about it a lot.
-  </p>
+<p id="typing"></p>
 
-  <p>
-    If I made you feel ignored, confused, or hurt in any way… I’m really sorry.
-    That was never my intention.
-  </p>
+<button onclick="showMessage()">Click this…</button>
 
-  <p>
-    You matter to me more than these small misunderstandings.
-    I don’t want something so small to create distance between us.
-  </p>
+<p id="secret" style="font-weight: bold; color:#ff4d6d;"></p>
 
-  <p>
-    I may not always get everything right… but one thing I’m always sure about is you.
-  </p>
+<h2>Our Memories 📸</h2>
 
-  <h2>❤️</h2>
+<img src="photo1.jpg.jpeg">
+<img src="photo2.jpg.jpeg">
+<img src="photo3.jpg.jpeg">
+<img src="photo4.jpg.jpeg">
 
-  <p>
-    I care about you. A lot.
-  </p>
+<script>
+/* ✨ Typing Effect */
+const text = "I know things felt a little off yesterday… and I’ve been thinking about it a lot.\n\nIf I made you feel hurt in any way… I’m really sorry.\n\nYou mean a lot to me, Vidhu ma… more than these small misunderstandings.\n\nI may not always be perfect… but I’ll always choose you.";
 
-  <button onclick="showMessage()">Click this…</button>
+let i = 0;
+function typeWriter() {
+  if (i < text.length) {
+    document.getElementById("typing").innerHTML += text.charAt(i);
+    i++;
+    setTimeout(typeWriter, 40);
+  }
+}
+typeWriter();
 
-  <p id="secret" style="font-weight: bold; color:#ff4d6d;"></p>
+/* ❤️ Button Message */
+function showMessage() {
+  document.getElementById("secret").innerText =
+  "No matter what happens, I choose you. Always. ❤️";
+}
 
-  <h2>Our Memories 📸</h2>
+/* 💖 Floating Hearts Generator */
+function createHeart() {
+  const heart = document.createElement("div");
+  heart.className = "heart";
+  heart.innerHTML = "❤️";
+  heart.style.left = Math.random() * 100 + "vw";
+  heart.style.fontSize = (Math.random() * 20 + 10) + "px";
+  heart.style.animationDuration = (Math.random() * 3 + 3) + "s";
 
-  <img src="photo1.jpg.jpeg">
-  <img src="photo2.jpg.jpeg">
-  <img src="photo3.jpg.jpeg">
-  <img src="photo4.jpg.jpeg">
+  document.body.appendChild(heart);
 
-  <script>
-    function showMessage() {
-      document.getElementById("secret").innerText =
-      "No matter what happens, I choose you. Always. ❤️";
-    }
-  </script>
+  setTimeout(() => {
+    heart.remove();
+  }, 6000);
+}
+
+setInterval(createHeart, 300);
+</script>
 
 </body>
 </html>
