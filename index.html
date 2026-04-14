@@ -17,16 +17,17 @@
     }
 
     section {
-      min-height: 100vh;
-      display: flex;
-      flex-direction: column;
-      justify-content: center;
-      align-items: center;
-      padding: 20px;
-      opacity: 0;
-      transform: translateY(40px);
-      transition: all 1s ease;
-    }
+  min-height: auto;   /* 🔥 FIXED */
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  padding: 60px 20px;  /* controlled spacing */
+  margin: 20px 0;      /* small gap between sections */
+  opacity: 0;
+  transform: translateY(40px);
+  transition: all 1s ease;
+}
 
     section.show {
       opacity: 1;
