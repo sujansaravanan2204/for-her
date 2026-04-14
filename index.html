@@ -16,33 +16,45 @@
       overflow-x: hidden;
     }
 
+    /* 🌙 Glow Effect */
+    h1, h2 {
+      color: #ff4d6d;
+      text-shadow: 0 0 10px rgba(255,77,109,0.8);
+    }
+
+    /* 🎬 Sections */
     section {
-  min-height: auto;   /* 🔥 FIXED */
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  padding: 60px 20px;  /* controlled spacing */
-  margin: 20px 0;      /* small gap between sections */
-  opacity: 0;
-  transform: translateY(40px);
-  transition: all 1s ease;
-}
+      min-height: auto;
+      padding: 60px 20px;
+      margin: 20px 0;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      opacity: 0;
+      transform: translateY(40px);
+      transition: all 1s ease;
+    }
 
     section.show {
       opacity: 1;
       transform: translateY(0);
+      backdrop-filter: blur(5px); /* 💫 blur transition */
     }
 
-    h1, h2 {
-      color: #ff4d6d;
+    /* 🎬 Background fade */
+    section:nth-child(odd) {
+      background: linear-gradient(to bottom, #0f0f0f, #1a1a1a);
+    }
+
+    section:nth-child(even) {
+      background: linear-gradient(to bottom, #1a1a1a, #0f0f0f);
     }
 
     p {
       max-width: 600px;
       text-align: center;
-      line-height: 1.6;
       font-size: 18px;
+      line-height: 1.6;
     }
 
     button {
@@ -51,19 +63,11 @@
       color: white;
       border: none;
       border-radius: 8px;
-      margin-top: 20px;
       cursor: pointer;
+      margin-top: 20px;
     }
 
-    /* 📸 Cinematic Photos */
-    .hero-img {
-      width: 90%;
-      max-width: 400px;
-      border-radius: 15px;
-      margin: 20px 0;
-      box-shadow: 0 10px 30px rgba(0,0,0,0.6);
-    }
-
+    /* 📸 Gallery */
     .gallery {
       display: grid;
       grid-template-columns: repeat(2, 1fr);
@@ -82,21 +86,21 @@
     .heart {
       position: fixed;
       bottom: -10px;
-      color: #ff4d6d;
       animation: floatUp 6s linear infinite;
+      color: #ff4d6d;
     }
 
     @keyframes floatUp {
-      0% { transform: translateY(0); opacity: 1; }
-      100% { transform: translateY(-100vh); opacity: 0; }
+      100% {
+        transform: translateY(-100vh);
+        opacity: 0;
+      }
     }
 
     /* 🎥 Video */
     #videoPopup {
       display: none;
       position: fixed;
-      top: 0;
-      left: 0;
       width: 100%;
       height: 100%;
       background: rgba(0,0,0,0.9);
@@ -109,20 +113,58 @@
       max-width: 500px;
     }
 
+    /* 🔐 Password Screen */
+    #lockScreen {
+      position: fixed;
+      width: 100%;
+      height: 100%;
+      background: #0f0f0f;
+      display: none;
+      justify-content: center;
+      align-items: center;
+      flex-direction: column;
+      z-index: 10;
+    }
+
+    /* 🎬 Start Screen */
+    #startScreen {
+      position: fixed;
+      width: 100%;
+      height: 100%;
+      background: #0f0f0f;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      flex-direction: column;
+      z-index: 20;
+    }
+
   </style>
 </head>
 
 <body>
 
-<!-- 🎬 SECTION 1 -->
+<!-- 🎬 START SCREEN -->
+<div id="startScreen">
+  <h1>Hey… ❤️</h1>
+  <button onclick="startExperience()">Click this…</button>
+</div>
+
+<!-- 🔐 PASSWORD -->
+<div id="lockScreen">
+  <h2>Enter Password ❤️</h2>
+  <input type="password" id="passwordInput">
+  <button onclick="checkPassword()">Enter</button>
+</div>
+
+<!-- 🎬 MAIN CONTENT -->
+<div id="mainContent" style="display:none;">
+
 <section>
-  <h1>OOIII KUTTII ma ❤️</h1>
+  <h1>OIII KUTTII ma ❤️</h1>
   <p id="typing"></p>
 </section>
 
-<!-- 🎬 SECTION 2 -->
-
-<!-- 🎬 SECTION 3 -->
 <section>
   <div class="gallery">
     <img src="photo2.jpg.jpeg">
@@ -132,57 +174,65 @@
   </div>
 </section>
 
-<!-- 🎬 SECTION 4 -->
 <section>
   <button onclick="showMessage()">Click this…</button>
   <p id="secret"></p>
 </section>
 
-<!-- 🎬 SECTION 5 -->
 <section>
   <button onclick="openVideo()">Watch this 🎥</button>
 </section>
 
-<!-- 🎬 FINAL -->
 <section>
   <h2>One last thing… ❤️</h2>
   <button onclick="showFinalLove()">Click this kuttima… 💖</button>
   <p id="finalMessage"></p>
 </section>
 
-<!-- 🎵 Music -->
+</div>
+
+<!-- 🎵 MUSIC -->
 <audio id="bgMusic" loop>
   <source src="song.mp3" type="audio/mpeg">
 </audio>
 
-<!-- 🎥 Video -->
+<!-- 🎥 VIDEO -->
 <div id="videoPopup" onclick="closeVideo()">
   <video controls>
-    <source src="video.mp4" type="video/mp4">
+    <source src="video.mp4">
   </video>
 </div>
 
 <script>
+
+/* 🎬 Start Experience */
+function startExperience() {
+  document.getElementById("startScreen").style.display = "none";
+  document.getElementById("lockScreen").style.display = "flex";
+  document.getElementById("bgMusic").play();
+}
+
+/* 🔐 Password */
+function checkPassword() {
+  if(document.getElementById("passwordInput").value === "vidhu") {
+    document.getElementById("lockScreen").style.display = "none";
+    document.getElementById("mainContent").style.display = "block";
+  }
+}
 
 /* 🎬 Scroll Animation */
 const sections = document.querySelectorAll("section");
 
 window.addEventListener("scroll", () => {
   sections.forEach(sec => {
-    const top = sec.getBoundingClientRect().top;
-    if(top < window.innerHeight - 100) {
+    if(sec.getBoundingClientRect().top < window.innerHeight - 100) {
       sec.classList.add("show");
     }
   });
 });
 
-/* 🎵 Start music */
-document.addEventListener("click", () => {
-  document.getElementById("bgMusic").play();
-}, { once: true });
-
 /* ✨ Typing */
-const text = "I know things felt a little off yesterday… and I’ve been thinking about it a lot.\n\nIf I hurt you in any way… I’m really sorry.\n\nYou mean a lot to me, Vidhu ma… more than anything.\n\nI’ll always choose you.";
+const text = "I know things felt a little off yesterday… and I’ve been thinking about it a lot.\n\nIf I hurt you… I’m really sorry.\n\nYou mean a lot to me Vidhu ma…\n\nI’ll always choose you.";
 
 let i = 0;
 function typeWriter() {
@@ -197,20 +247,19 @@ typeWriter();
 /* ❤️ Message */
 function showMessage() {
   document.getElementById("secret").innerText =
-  "No matter what happens, I choose you. Always. ❤️";
+  "No matter what happens, I choose you ❤️";
 }
 
 /* 💖 Hearts */
-function createHeart() {
-  const heart = document.createElement("div");
-  heart.className = "heart";
-  heart.innerHTML = "❤️";
-  heart.style.left = Math.random() * 100 + "vw";
-  heart.style.fontSize = (Math.random() * 20 + 10) + "px";
-  document.body.appendChild(heart);
-  setTimeout(() => heart.remove(), 6000);
-}
-setInterval(createHeart, 300);
+setInterval(() => {
+  const h = document.createElement("div");
+  h.className = "heart";
+  h.innerHTML = "❤️";
+  h.style.left = Math.random()*100+"vw";
+  h.style.fontSize = (10 + Math.random()*20)+"px";
+  document.body.appendChild(h);
+  setTimeout(()=>h.remove(),6000);
+},300);
 
 /* 🎥 Video */
 function openVideo() {
@@ -223,7 +272,7 @@ function closeVideo() {
 /* 💌 Final */
 function showFinalLove() {
   document.getElementById("finalMessage").innerText =
-  "Hope this makes you happy vidhu maaa ❤️";
+  "Hope this made you smile kutti ❤️";
 }
 
 </script>
