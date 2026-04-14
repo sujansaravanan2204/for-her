@@ -3,13 +3,8 @@
 <head>
   <title>For You ❤️</title>
 
-  <!-- ✅ MOBILE FIX -->
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
   <style>
-    html {
-      scroll-behavior: smooth;
-    }
+    html { scroll-behavior: smooth; }
 
     body {
       margin: 0;
@@ -25,26 +20,33 @@
     }
 
     section {
-      min-height: 100vh;
-      padding: 40px 20px;
+      padding: 80px 20px;
       display: flex;
       flex-direction: column;
       align-items: center;
-      justify-content: center;
       opacity: 0;
       transform: translateY(40px);
-      transition: all 1s ease;
+      transition: all 1.2s ease;
     }
 
     section.show {
       opacity: 1;
       transform: translateY(0);
+      backdrop-filter: blur(6px);
+    }
+
+    section:nth-child(odd) {
+      background: linear-gradient(to bottom, #0f0f0f, #1a1a1a);
+    }
+
+    section:nth-child(even) {
+      background: linear-gradient(to bottom, #1a1a1a, #0f0f0f);
     }
 
     p {
       max-width: 600px;
       text-align: center;
-      font-size: 16px;
+      font-size: 18px;
       line-height: 1.8;
     }
 
@@ -61,28 +63,27 @@
     /* 📸 Gallery */
     .gallery {
       display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
-      gap: 10px;
-      width: 90%;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 12px;
       max-width: 500px;
     }
 
     .gallery img {
       width: 100%;
-      aspect-ratio: 1/1;
+      height: 180px;
       object-fit: cover;
-      border-radius: 10px;
+      border-radius: 12px;
     }
 
-    /* 📸 Extra images */
+    /* 📸 Special Images */
     .extra-img {
       width: 90%;
-      max-width: 320px;
+      max-width: 350px;
       margin-top: 20px;
       border-radius: 12px;
       opacity: 0;
       transform: scale(0.9);
-      transition: 0.6s ease;
+      transition: all 0.8s ease;
     }
 
     .extra-img.show {
@@ -105,29 +106,8 @@
       }
     }
 
-    /* 🎥 VIDEO POPUP (FIXED) */
-    #videoPopup {
-      display: none;
-      position: fixed;
-      top: 0;
-      left: 0;
-      width: 100vw;
-      height: 100vh;
-      background: rgba(0,0,0,0.95);
-      z-index: 999;
-      justify-content: center;
-      align-items: center;
-      flex-direction: column;
-    }
-
-    video {
-      width: 90%;
-      max-width: 400px;
-      border-radius: 10px;
-    }
-
     /* 🔐 Screens */
-    #startScreen, #lockScreen {
+    #lockScreen, #startScreen {
       position: fixed;
       width: 100%;
       height: 100%;
@@ -136,12 +116,10 @@
       justify-content: center;
       align-items: center;
       flex-direction: column;
-      z-index: 1000;
+      z-index: 10;
     }
 
-    #lockScreen {
-      display: none;
-    }
+    #lockScreen { display: none; }
 
   </style>
 </head>
@@ -171,10 +149,10 @@
 
 <section>
   <div class="gallery">
-    <img src="photo1.jpg.jpeg">
     <img src="photo2.jpg.jpeg">
     <img src="photo3.jpg.jpeg">
     <img src="photo4.jpg.jpeg">
+    <img src="photo1.jpg.jpeg">
   </div>
 </section>
 
@@ -182,11 +160,6 @@
   <button onclick="showMessage()">Click this…</button>
   <p id="secret"></p>
   <img id="photo5" src="photo5.jpg.jpeg" class="extra-img">
-</section>
-
-<!-- 🎥 VIDEO BUTTON -->
-<section>
-  <button onclick="openVideo()">Watch this 🎥</button>
 </section>
 
 <section>
@@ -198,18 +171,10 @@
 
 </div>
 
-<!-- 🎵 MUSIC -->
+<!-- MUSIC -->
 <audio id="bgMusic" loop>
-  <source src="song.mp3">
+  <source src="song.mp3" type="audio/mpeg">
 </audio>
-
-<!-- 🎥 VIDEO POPUP -->
-<div id="videoPopup">
-  <video id="myVideo" controls playsinline>
-    <source src="video.mp4" type="video/mp4">
-  </video>
-  <button onclick="closeVideo()">Close ✖</button>
-</div>
 
 <script>
 
@@ -226,7 +191,7 @@ function checkPassword() {
     document.getElementById("lockScreen").style.display = "none";
     document.getElementById("mainContent").style.display = "block";
   } else {
-    alert("Think again kuttima ❤️");
+    alert("Think again kuttimaa ❤️");
   }
 }
 
@@ -240,15 +205,15 @@ window.addEventListener("scroll", () => {
   });
 });
 
-/* TYPING */
-const text = "I know things felt a little off yesterday...\n\nI’ve been thinking about it a lot.\n\nIf I hurt you, I’m really sorry.\n\nYou mean a lot to me Vidhu ma...\n\nI’ll always choose you ❤️";
+/* SLOW TYPING */
+const text = "I know things felt a little off yesterday…\n\nI’ve been thinking about it a lot.\n\nIf I hurt you… I’m really sorry.\n\nYou mean a lot to me Vidhu ma…\n\nMore than anything.\n\nAnd no matter what happens…\n\nI’ll always choose you.";
 
 let i = 0;
 function typeWriter() {
   if (i < text.length) {
     document.getElementById("typing").innerHTML += text.charAt(i);
     i++;
-    setTimeout(typeWriter, 50);
+    setTimeout(typeWriter, 60);
   }
 }
 typeWriter();
@@ -264,12 +229,12 @@ function showMessage() {
 /* FINAL */
 function showFinalLove() {
   document.getElementById("finalMessage").innerText =
-  "I hope you're okay now kuttima… I just love making you smile… because I meow you a lottttt ❤️";
+  "I hope you’re okay now kuttima… don’t tell me not to do all this, I just love making you smile… because I meow you a lottttt kuttimaa 🐾❤️";
 
   document.getElementById("photo6").classList.add("show");
 }
 
-/* 💖 HEARTS */
+/* HEARTS */
 setInterval(() => {
   const h = document.createElement("div");
   h.className = "heart";
@@ -279,26 +244,6 @@ setInterval(() => {
   document.body.appendChild(h);
   setTimeout(()=>h.remove(),6000);
 },300);
-
-/* 🎥 VIDEO (FIXED PROPERLY) */
-function openVideo() {
-  const popup = document.getElementById("videoPopup");
-  const video = document.getElementById("myVideo");
-
-  popup.style.display = "flex";
-
-  // 🔥 Important for mobile
-  video.load();
-}
-
-function closeVideo() {
-  const popup = document.getElementById("videoPopup");
-  const video = document.getElementById("myVideo");
-
-  popup.style.display = "none";
-  video.pause();
-  video.currentTime = 0;
-}
 
 </script>
 
