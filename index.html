@@ -106,7 +106,7 @@
       }
     }
 
-    /* 🎥 VIDEO POPUP FIXED */
+    /* 🎥 VIDEO POPUP (UPDATED) */
     #videoPopup {
       display: none;
       position: fixed;
@@ -117,13 +117,13 @@
       background: rgba(0,0,0,0.95);
       justify-content: center;
       align-items: center;
-      flex-direction: column;
       z-index: 100;
     }
 
     video {
-      width: 80%;
-      max-width: 500px;
+      width: 90%;
+      max-width: 400px;
+      max-height: 70vh;
       border-radius: 10px;
     }
 
@@ -202,11 +202,10 @@
 </audio>
 
 <!-- 🎥 VIDEO -->
-<div id="videoPopup">
-  <video controls id="myVideo">
+<div id="videoPopup" onclick="closeVideo()">
+  <video controls id="myVideo" onclick="event.stopPropagation()">
     <source src="video.mp4">
   </video>
-  <button onclick="closeVideo()">Close ✖</button>
 </div>
 
 <script>
@@ -278,7 +277,7 @@ setInterval(() => {
   setTimeout(()=>h.remove(),6000);
 },300);
 
-/* 🎥 VIDEO FIXED */
+/* 🎥 VIDEO */
 function openVideo() {
   document.getElementById("videoPopup").style.display = "flex";
 }
