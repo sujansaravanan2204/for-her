@@ -28,7 +28,6 @@
       width: 200px;
       border-radius: 12px;
       margin: 10px;
-      box-shadow: 0 4px 10px rgba(0,0,0,0.2);
     }
 
     button {
@@ -37,41 +36,74 @@
       color: white;
       border: none;
       border-radius: 8px;
-      font-size: 16px;
-      margin-top: 20px;
       cursor: pointer;
+      margin: 10px;
     }
 
-    /* 💖 Floating Hearts */
+    /* 🔐 Password Screen */
+    #lockScreen {
+      position: fixed;
+      width: 100%;
+      height: 100%;
+      background: #ffe6e6;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      flex-direction: column;
+      z-index: 10;
+    }
+
+    /* 💖 Hearts */
     .heart {
       position: fixed;
       bottom: -10px;
-      color: #ff4d6d;
       animation: floatUp 6s linear infinite;
+      color: #ff4d6d;
     }
 
     @keyframes floatUp {
-      0% {
-        transform: translateY(0);
-        opacity: 1;
-      }
-      100% {
-        transform: translateY(-100vh);
-        opacity: 0;
-      }
+      0% { transform: translateY(0); opacity: 1; }
+      100% { transform: translateY(-100vh); opacity: 0; }
+    }
+
+    /* 🎥 Video Popup */
+    #videoPopup {
+      display: none;
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(0,0,0,0.8);
+      justify-content: center;
+      align-items: center;
+    }
+
+    video {
+      width: 80%;
+      max-width: 500px;
+      border-radius: 10px;
     }
   </style>
 </head>
 
 <body>
 
+<!-- 🔐 Password Screen -->
+<div id="lockScreen">
+  <h2>Enter Password ❤️</h2>
+  <input type="password" id="passwordInput" placeholder="Enter something special">
+  <button onclick="checkPassword()">Enter</button>
+</div>
+
 <h1>Hey Vidhu ma ❤️</h1>
 
 <p id="typing"></p>
 
 <button onclick="showMessage()">Click this…</button>
+<button onclick="openVideo()">Watch this 🎥</button>
 
-<p id="secret" style="font-weight: bold; color:#ff4d6d;"></p>
+<p id="secret" style="font-weight:bold;color:#ff4d6d;"></p>
 
 <h2>Our Memories 📸</h2>
 
@@ -80,9 +112,38 @@
 <img src="photo3.jpg.jpeg">
 <img src="photo4.jpg.jpeg">
 
+<!-- 💌 FINAL SECTION -->
+<h2>One last thing… ❤️</h2>
+
+<button onclick="showFinalLove()">Click this kutti… 💖</button>
+
+<p id="finalMessage" style="font-weight:bold; color:#ff4d6d; font-size:20px;"></p>
+
+<!-- 🎵 Background Music -->
+<iframe width="0" height="0"
+src="https://www.youtube.com/embed/Ha9stsbmreI?autoplay=1&loop=1&playlist=Ha9stsbmreI">
+</iframe>
+
+<!-- 🎥 Video Popup -->
+<div id="videoPopup" onclick="closeVideo()">
+  <video controls>
+    <source src="video.mp4" type="video/mp4">
+  </video>
+</div>
+
 <script>
-/* ✨ Typing Effect */
-const text = "I know things felt a little off yesterday… and I’ve been thinking about it a lot.\n\nIf I made you feel hurt in any way… I’m really sorry.\n\nYou mean a lot to me, Vidhu ma… more than these small misunderstandings.\n\nI may not always be perfect… but I’ll always choose you.";
+/* 🔐 Password */
+function checkPassword() {
+  const pass = document.getElementById("passwordInput").value;
+  if(pass === "vidhu") {
+    document.getElementById("lockScreen").style.display = "none";
+  } else {
+    alert("Wrong password ❤️");
+  }
+}
+
+/* ✨ Typing */
+const text = "I know things felt a little off yesterday… and I’ve been thinking about it a lot.\n\nIf I hurt you in any way… I’m really sorry.\n\nYou mean a lot to me, Vidhu ma… more than anything.\n\nI’ll always choose you.";
 
 let i = 0;
 function typeWriter() {
@@ -94,29 +155,37 @@ function typeWriter() {
 }
 typeWriter();
 
-/* ❤️ Button Message */
+/* ❤️ Button */
 function showMessage() {
   document.getElementById("secret").innerText =
   "No matter what happens, I choose you. Always. ❤️";
 }
 
-/* 💖 Floating Hearts Generator */
+/* 💖 Hearts */
 function createHeart() {
   const heart = document.createElement("div");
   heart.className = "heart";
   heart.innerHTML = "❤️";
   heart.style.left = Math.random() * 100 + "vw";
   heart.style.fontSize = (Math.random() * 20 + 10) + "px";
-  heart.style.animationDuration = (Math.random() * 3 + 3) + "s";
-
   document.body.appendChild(heart);
+  setTimeout(() => heart.remove(), 6000);
+}
+setInterval(createHeart, 300);
 
-  setTimeout(() => {
-    heart.remove();
-  }, 6000);
+/* 🎥 Video */
+function openVideo() {
+  document.getElementById("videoPopup").style.display = "flex";
+}
+function closeVideo() {
+  document.getElementById("videoPopup").style.display = "none";
 }
 
-setInterval(createHeart, 300);
+/* 💌 FINAL MESSAGE */
+function showFinalLove() {
+  document.getElementById("finalMessage").innerText =
+  "Kovam koranjiruchaa kuttimaaaa… ❤️";
+}
 </script>
 
 </body>
